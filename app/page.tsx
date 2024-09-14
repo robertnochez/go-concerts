@@ -49,13 +49,13 @@ export default function LoginForm() {
                 Convex{" "}
               </a>
               and{" "}
-              <a
+              {/* <a
                 className="font-bold"
                 target="_blank"
                 href="https://www.openai.com/"
               >
                 OpenAI ✨
-              </a>
+              </a> */}
             </span>
             <h1 className="inline-block text-center text-4xl font-medium tracking-tighter text-dark lg:text-7xl">
               An Open Source AI-Powered{" "}
@@ -118,13 +118,13 @@ export default function LoginForm() {
               Convex
             </a>
             and
-            <a
+            {/* <a
               href="https://www.openai.com/"
               target="_blank"
               className="pl-1 font-bold transition hover:text-black/50"
             >
               OpenAI
-            </a>
+            </a> */}
           </div>
           <div className="flex space-x-4 pb-4 sm:pb-0">
             <a
