@@ -9,7 +9,9 @@ import Link from "next/link";
 
 import { useFormStatus } from "react-dom";
 
-export default function LoginForm() {
+// test
+
+export default function LoginForm() { 
   return (
     <main className="bg-gradient-to-r from-purple-200 to-orange-200 h-full min-h-screen">
       <div className="container relative m-0 mx-auto py-10 md:px-10">
