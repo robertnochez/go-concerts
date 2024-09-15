@@ -115,13 +115,13 @@ export default function HomePage() {
               </div>
             </div>
             <h1 className="inline-block text-center text-4xl font-medium text-white lg:text-7xl">
-              Find concerts near you
+              Music Near You
             </h1>
             <h2 className="mt-8 mb-8 text-center text-xl font-light text-white tracking-tight lg:text-3xl italic">
               goConcerts.io seamlessly{" "}
-              <span className="font-bold px-1">compares ticket prices</span> and{" "}
-              <span className="font-bold px-1">suggests music matches</span>{" "}
-              using AI
+              <span className="font-bold px-1">compares ticket prices</span>{" "}
+              <span className="font-bold px-1">suggests music matches</span>, and{" "}
+              <span className="font-bold px-1">generate your own music using Suno AI!</span>
             </h2>
 
             {/* Search Bar */}
