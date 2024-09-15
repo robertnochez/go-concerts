@@ -15,8 +15,6 @@ import Image from "next/image";
 import SearchForm from "./search-form";
 import UserProfile from "./user-profile";
 
-import todovexLogo from "@/public/logo/todovex.svg";
-
 export default function MobileNav({
   navTitle = "",
   navLink = "#",
@@ -80,9 +78,6 @@ export default function MobileNav({
         </div>
         <div className="place-content-center w-full flex-1">
           <SearchForm />
-        </div>
-        <div className="place-content-center w-12 h-12 lg:w-16 lg:h-20">
-          <Image alt="logo" src={todovexLogo} />
         </div>
       </div>
     </header>
