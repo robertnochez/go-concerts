@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { OpenAI } from 'openai';
@@ -77,7 +77,7 @@ const GenerateMusicPage: React.FC = () => {
 
   const pollForMusic = async (clipId: string) => {
     setPolling(true);
-    let isMounted = true; 
+    let isMounted = true;
 
     try {
       while (isMounted) {
@@ -93,14 +93,17 @@ const GenerateMusicPage: React.FC = () => {
         }
 
         const statusData = await statusResponse.json();
+        console.log('Clip Status Data:', statusData);
+
         const clipStatus = statusData?.[0]?.status;
 
-        if (clipStatus === 'finished') {
+        if (clipStatus === 'complete') {
           if (isMounted) {
             setMusicUrl(statusData[0].audio_url); // Set the audio URL
+            console.log('Audio URL:', statusData[0].audio_url); // Log the audio URL
             setPolling(false); // Stop polling
           }
-          break; 
+          break;
         } else {
           await new Promise((resolve) => setTimeout(resolve, 5000));
         }
@@ -120,12 +123,11 @@ const GenerateMusicPage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Cleanup function to handle unmounting
     return () => { setPolling(false); };
   }, []);
 
   const handleReturnHome = () => {
-    router.push('/'); 
+    router.push('/testing2'); 
   };
 
   return (
@@ -160,10 +162,13 @@ const GenerateMusicPage: React.FC = () => {
 
       {musicUrl ? (
         <div className="mt-6">
-          <audio controls className="w-full max-w-md rounded-lg shadow-lg">
-            <source src={musicUrl} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
+          <div className="relative w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-4">
+            <audio controls className="w-full rounded-lg">
+              <source src={musicUrl} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <div className="mt-2 text-gray-700 text-sm">Now playing your generated music</div>
+          </div>
         </div>
       ) : (
         !loading && !polling && (
