@@ -1,6 +1,6 @@
 import MobileNav from "@/components/nav/mobile-nav";
 import SideBar from "@/components/nav/side-bar";
-import TodoList from "@/components/todos/todo-list";
+import SpotifyLogin from "@/components/spotify/spotify-auth";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 
@@ -12,8 +12,9 @@ export default function Home() {
       <div className="flex flex-col">
         <MobileNav />
         <main className="flex flex-1 flex-col gap-4 p-4 lg:px-8">
-          {/* <TodoList /> */}
+          <SpotifyLogin />
           <UserButton />
+
           {
             userId
           }
