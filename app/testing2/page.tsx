@@ -90,6 +90,18 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="flex flex-col items-center p-6 space-y-6">
           <div className="flex h-full w-full flex-col items-center justify-center">
+          <div className="">
+              <div className="flex items-center justify-center py-12">
+                <Image
+                  alt="mobile"
+                  loading="lazy"
+                  width="250"
+                  height="300"
+                  className="z-10 max-w-[400px]"
+                  src={"/waveform.png"}
+                />
+              </div>
+            </div>
             <h1 className="inline-block text-center text-4xl font-medium text-white lg:text-7xl">
               Find concerts near you
             </h1>
