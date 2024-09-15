@@ -12,9 +12,9 @@ const ORIGIN_URL =
     : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Todovex.ai",
+  title: "goConcerts.io",
   description:
-    "TodoVex seamlessly organizes your tasks and predicts what's nextusing AI.",
+    "goConcerts.io seamlessly compares ticket prices and suggests music matches using AI",
   icons: {
     icon: "/icon.ico",
   },
