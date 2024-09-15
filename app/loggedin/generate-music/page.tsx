@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { OpenAI } from 'openai';
 import { HfInference } from '@huggingface/inference';
-
 
 const SUNO_API_URL = 'https://studio-api.suno.ai/api/external/generate/';
 const SUNO_CLIP_STATUS_URL = 'https://studio-api.suno.ai/api/external/clips/?ids=';
@@ -22,48 +21,19 @@ const GenerateMusicPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGING_FACE_API_KEY);
 
-
   const artistName = searchParams.get('artistName');
 
-  // Function to use OpenAI's text generation for music description
   const generateDescriptionUsingOpenAI = async () => {
-    const response = await hf.textGeneration({
-      model: 'EleutherAI/gpt-neo-2.7B',
-      inputs: "Describe the vibe or style of" + artistName + "'s music",
-    });
-  // async () => {
-  //   try {
-  //     const openAIResponse = await openai.chat.completions.create({
-  //       // model: 'text-davinci-003', // You can use other models like 'gpt-4' if available
-  //       // prompt: `Generate a description for a music style similar to ${artistName}.`,
-  //       // max_tokens: 100,
-  //       // const response = await openai.chat.completions.create({
-  //               messages: [
-                  
-  //                 {
-  //                   role: "system",
-  //                   content:
-  //                     "I am a music discovery company and I want know the style or vibe of the music from a artist the user likes",
-  //                 },
-  //                 {
-  //                   role: "user",
-  //                   content: "Generate a description for a music style similar to ${artistName}."
-  //                 },
-  //               ],
-  //               response_format: {
-  //                 type: "json_object",
-  //               },
-  //               model: "gpt-3.5-turbo",
-  //               max_tokens: 100,
-  //             });
-  //     // });
-      // console.log(openAIResponse.choices[0].message?.content)
-      console.log(response)
+    try {
+      const response = await hf.textGeneration({
+        model: 'EleutherAI/gpt-neo-2.7B',
+        inputs: `Describe the vibe or style of ${artistName}'s music`,
+      });
       return response.generated_text;
-    // } catch (error: any) {
-    //   console.error('Error generating description using Hugging Face:', error);
-    //   throw new Error('Failed to generate description.');
-    // }
+    } catch (error) {
+      console.error('Error generating description using Hugging Face:', error);
+      throw new Error('Failed to generate description.');
+    }
   };
 
   const generateMusic = async () => {
@@ -77,18 +47,16 @@ const GenerateMusicPage: React.FC = () => {
     setError(null);
 
     try {
-      // Call OpenAI to generate a description
       const aiGeneratedDescription = await generateDescriptionUsingOpenAI();
 
-      // Generate the music
       const response = await fetch(SUNO_API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'text/plain;charset=UTF-8',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUNO_API_KEY}`, 
         },
         body: JSON.stringify({
-          topic: description + " in the style of " + aiGeneratedDescription,
+          topic: description + " in the style of heartfelt storytelling with a dynamic mix of country, pop, and indie influences, often capturing themes of love, personal growth, and self-reflection.",
         }),
       });
 
@@ -99,7 +67,7 @@ const GenerateMusicPage: React.FC = () => {
       const data = await response.json();
       setClipId(data.id); // Extract the clip ID
       pollForMusic(data.id); // Start polling for the music status
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error generating music:', error);
       setError('Failed to generate music. Please try again.');
     } finally {
@@ -109,10 +77,10 @@ const GenerateMusicPage: React.FC = () => {
 
   const pollForMusic = async (clipId: string) => {
     setPolling(true);
-    try {
-      let musicReady = false;
+    let isMounted = true; 
 
-      while (!musicReady) {
+    try {
+      while (isMounted) {
         const statusResponse = await fetch(`${SUNO_CLIP_STATUS_URL}${clipId}`, {
           method: 'GET',
           headers: {
@@ -128,22 +96,34 @@ const GenerateMusicPage: React.FC = () => {
         const clipStatus = statusData?.[0]?.status;
 
         if (clipStatus === 'finished') {
-          setMusicUrl(statusData[0].audio_url); // Set the audio URL
-          musicReady = true; // Stop polling
+          if (isMounted) {
+            setMusicUrl(statusData[0].audio_url); // Set the audio URL
+            setPolling(false); // Stop polling
+          }
+          break; 
         } else {
-          // Wait before polling again (e.g., every 5 seconds)
           await new Promise((resolve) => setTimeout(resolve, 5000));
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching music status:', error);
-      setError('Failed to load the generated music.');
+      if (isMounted) {
+        setError('Failed to load the generated music.');
+      }
     } finally {
-      setPolling(false);
+      if (isMounted) {
+        setPolling(false);
+      }
     }
+
+    return () => { isMounted = false; };
   };
 
-  // Function to navigate back to home
+  useEffect(() => {
+    // Cleanup function to handle unmounting
+    return () => { setPolling(false); };
+  }, []);
+
   const handleReturnHome = () => {
     router.push('/'); 
   };
@@ -158,7 +138,6 @@ const GenerateMusicPage: React.FC = () => {
         Describe the type of music you want to generate, and we will create it for you!
       </p>
 
-      {/* Text input for music description */}
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -194,7 +173,6 @@ const GenerateMusicPage: React.FC = () => {
         )
       )}
 
-      {/* Return Home Button */}
       <button
         className="mt-12 bg-white text-orange-500 py-3 px-6 rounded-full shadow-lg border border-orange-500 hover:bg-orange-500 hover:text-white transition-transform transform hover:scale-105"
         onClick={handleReturnHome}

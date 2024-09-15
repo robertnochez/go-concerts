@@ -92,9 +92,10 @@ export default function HomePage() {
               <SignInButton />
             </SignedOut>
             <SignedIn>
+            <SpotifyLogin />
               <UserButton />
             </SignedIn>
-            <SpotifyLogin />
+ 
             {/* </form> */}
           </div>
         </div>
