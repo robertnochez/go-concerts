@@ -51,18 +51,28 @@ const ArtistEventSearch = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={artistName}
-          onChange={(e) => setArtistName(e.target.value)}
-          placeholder="Enter artist name"
-        />
-        <button type="submit">Search Events</button>
-      </form>
+    <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="text-2xl mt-12">
+          Find your favorite artists performing
+        </div>
+      <div className="mt-8 flex flex-col gap-4">
+        <form
+          onSubmit={handleSearch}
+          className="px-24"
+        >
+          <input
+            type="text"
+            className="py-2 px-4 w-96 rounded-sm mx-4 border-2 mb-12"
+            value={artistName}
+            onChange={(e) => setArtistName(e.target.value)}
+            placeholder="Enter artist name"
+          />
+          <button type="submit" className="bg-blue-400 px-4 py-2 rounded-sm">Search Events</button>
+        </form>
+        {error && <p>{error}</p>}
+      </div>
 
-      {error && <p>{error}</p>}
+      
 
       <div>
         {events.length > 0 && (
