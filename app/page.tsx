@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { Loader, StepForward } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import { useFormStatus } from "react-dom";
 
@@ -67,7 +69,8 @@ export default function LoginForm() {
               <span className="font-bold px-1">suggests music matches</span>
               using AI.
             </h2>
-            <div className="mt-12 flex flex-col gap-4">   
+            <div className="mt-12 flex flex-col gap-4">  
+              <SearchBar /> 
               {/* <form action={signInAction}>
                 <GetStartedButton />
                 <NextPageButton />
@@ -167,3 +170,37 @@ function GoogleSignInButton() {
   );
 }
 
+function SearchBar() {
+  const [value, setValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://dummyjson.com/products/search?q=${value}`
+        );
+
+        setSuggestions(data.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [value]);
+
+  return (
+    <div className="px-24">
+      <input
+        type="text"
+        className="py-2 px-4 w-96 rounded-sm"
+        placeholder="Search events, artists, teams, and more..."
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+    </div>
+  );
+};
