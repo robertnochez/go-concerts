@@ -37,11 +37,8 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.5",
-<<<<<<< Updated upstream
     "react-type-animation": "^3.2.0",
-=======
     "react-router-dom": "^6.26.2",
->>>>>>> Stashed changes
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
