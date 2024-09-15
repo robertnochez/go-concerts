@@ -1,4 +1,4 @@
-# GoConcerts - Your comprehensive music event and discovery platform
+# goConcerts - Your comprehensive music event and discovery platform
 
 
 Built with the Next.js 14 App Router, Convex, React, Next.js Auth V5 i.e. Auth.js, Google Sign in, ShadCN UI library, React Hook Forms, TypeScript, OPenAI, TailwindCSS and more
