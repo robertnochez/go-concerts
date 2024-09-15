@@ -38,15 +38,6 @@ export default function LoginForm() {
                   className="z-10 max-w-[400px]"
                   src={"/waveform.png"}
                 />
-                {/* <Image
-                  src="/waveform.png"
-                  alt="laptop"
-                  loading="lazy"
-                  width="1000"
-                  height="500"
-                  data-nimg="1"
-                  className="h-full -ml-28 mt-10 hidden lg:flex"
-                /> */}
               </div>
             </div>
             <h1 className="inline-block text-center text-4xl font-medium tracking-tighter text-dark lg:text-7xl">
