@@ -2,7 +2,7 @@
 import { signInAction } from "@/actions/auth-action";
 import { Button } from "@/components/ui/button";
 import todovexLogo from "@/public/logo/todovex.svg";
-import micdrop from "@/public/logo/mic-drop.png";
+// import micdrop from "@/public/logo/mic-drop.png";
 import clsx from "clsx";
 import { Loader, StepForward } from "lucide-react";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { debounce } from 'lodash';
+import { SignIn } from "@clerk/nextjs";
 
 interface Attraction {
   name: string;
@@ -83,22 +84,23 @@ export default function HomePage() {
           </Link>
           <div className="hidden lg:flex w-fit items-center">
             <form action={signInAction}>
-              <NextPageButton />
+              <SignInButton />
             </form>
+           
           </div>
         </div>
 
         {/* Hero Section */}
         <div className="flex flex-col items-center p-6 space-y-6">
           <div className="flex h-full w-full flex-col items-center justify-center">
-          <Image
+          {/* <Image
                   alt="mobile"
                   loading="lazy"
                   width="150"
                   height="150"
                   className="z-10 max-w-[400px]"
-                  src={micdrop}
-                />
+                  src={}
+                /> */}
             <h1 className="inline-block text-center text-4xl font-medium text-white lg:text-7xl">
               Find concerts near you
             </h1>
@@ -172,27 +174,31 @@ export default function HomePage() {
   );
 }
 
-function NextPageButton() {
+function SignInButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      disabled={pending}
-      type="submit"
-      className="flex items-center justify-center px-8 py-4 mb-2 me-2 overflow-hidden text-xl font-medium text-yellow-500 rounded-xl group bg-white hover:text-yellow-600 dark:text-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-blue-800"
-    >
-      <span className="flex items-center gap-1">
-        {pending ? (
-          <span className="px-16">
-            <Loader className="w-5 h-5" />
-          </span>
-        ) : (
-          <>
-            Get Started
-            <StepForward />
-          </>
-        )}
-      </span>
-    </button>
+    <Link href={"/signIn"}>
+      <button
+        disabled={pending}
+        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+      >
+        <span
+          className={clsx(
+            "relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0",
+            pending && "px-16"
+          )}
+        >
+          {pending ? (
+            <span className="">
+              <Loader className="w-5 h-5" />
+            </span>
+          ) : (
+            "Sign in"
+          )}
+        </span>
+      </button>
+    </Link>
+
   );
 }
