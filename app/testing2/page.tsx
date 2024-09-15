@@ -87,7 +87,6 @@ export default function HomePage() {
           </Link>
           <div className="hidden lg:flex w-fit items-center">
             {/* <form action={signInAction}> */}
-            <SignInButton />
             <SignedOut>
               <SignInButton />
             </SignedOut>
