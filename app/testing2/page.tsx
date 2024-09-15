@@ -2,7 +2,6 @@
 import { signInAction } from "@/actions/auth-action";
 import { Button } from "@/components/ui/button";
 import todovexLogo from "@/public/logo/todovex.svg";
-import micdrop from "@/public/logo/mic-drop.png";
 import clsx from "clsx";
 import { Loader, StepForward } from "lucide-react";
 import Image from "next/image";
@@ -91,14 +90,6 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="flex flex-col items-center p-6 space-y-6">
           <div className="flex h-full w-full flex-col items-center justify-center">
-          <Image
-                  alt="mobile"
-                  loading="lazy"
-                  width="150"
-                  height="150"
-                  className="z-10 max-w-[400px]"
-                  src={micdrop}
-                />
             <h1 className="inline-block text-center text-4xl font-medium text-white lg:text-7xl">
               Find concerts near you
             </h1>
