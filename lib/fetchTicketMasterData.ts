@@ -1,10 +1,6 @@
 import type { TicketDataType, TicketMasterAllEventsDataType } from './ticketWebsiteTypeUtils';
 
 const TICKETMASTER_API_KEY = process.env.TICKETMASTER_API_KEY;  
-
-type TicketMasterResponse = {
-  test: String;
-}
  
 export const searchArtist = async (artistName: string): Promise<TicketMasterAllEventsDataType> => {
   const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?keyword=${encodeURIComponent(artistName)}&apikey=${TICKETMASTER_API_KEY}`);
@@ -31,7 +27,7 @@ export const extractTicketMasterEventDetails = (jsonData: TicketMasterAllEventsD
 };
   
   // Example usage
-  const ARTIST_NAME = 'Example Artist'; // Replace with the actual artist name
+  const ARTIST_NAME = 'Sabrina Carpenter'; // Replace with the actual artist name
   searchArtist(ARTIST_NAME)
     .then(data => {
       console.log(data);
