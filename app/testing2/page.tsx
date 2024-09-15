@@ -96,8 +96,8 @@ export default function HomePage() {
           {/* <Image
                   alt="mobile"
                   loading="lazy"
-                  width="150"
-                  height="150"
+                  width="250"
+                  height="300"
                   className="z-10 max-w-[400px]"
                   src={}
                 /> */}
