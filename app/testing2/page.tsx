@@ -114,6 +114,27 @@ export default function HomePage() {
                 />
               </div>
             </div>
+            <span
+              rel="noreferrer"
+              className="mb-6 cursor-pointer rounded-2xl border border-black px-4 py-1 text-xs text-slate-600 transition duration-300 ease-in-out hover:text-slate-700 sm:text-base text-center"
+            >
+              Powered by{" "}
+              <a
+                className="font-bold"
+                target="_blank"
+                href="https://www.convex.dev/"
+              >
+                Convex{" "}
+              </a>
+              and{" "}
+              <a
+                className="font-bold"
+                target="_blank"
+                href="https://suno.com/"
+              >
+                Suno AI ✨
+              </a>
+            </span>
             <h1 className="inline-block text-center text-4xl font-medium text-white lg:text-7xl">
               Music Near You
             </h1>
