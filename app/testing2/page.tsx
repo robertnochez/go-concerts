@@ -40,7 +40,6 @@ export default function HomePage() {
     setError(null);
 
     const baseUrl = "https://app.ticketmaster.com/discovery/v2/attractions";
-    const apiKey = "2SkTVj4HZ45flNjJiC8CrgfVJsnz5zV3";
     const url = `${baseUrl}?apikey=${apiKey}&keyword=${searchKeyword}`;
 
     try {
