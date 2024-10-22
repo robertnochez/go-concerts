@@ -28,7 +28,6 @@ const ArtistEventSearch = () => {
   const [error, setError] = useState('');
 
   const fetchArtistId = async (artist: string) => {
-    const apiKey = '2SkTVj4HZ45flNjJiC8CrgfVJsnz5zV3';
     const url = `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${artist}&apikey=${apiKey}`;
     try {
       const response = await fetch(url);
